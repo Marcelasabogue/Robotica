@@ -36,21 +36,24 @@ thickness = 2
 
 cv2.namedWindow('Object Dist Measure ',cv2.WINDOW_NORMAL)
 cv2.resizeWindow('Object Dist Measure ', 700,600)
-
-
+a=7
 #loop to capture video frames
 while True:
     ret, img = cap.read()
-
     hsv_img = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-
-
-    #predefined mask for green colour detection
-    lower = np.array([0, 93, 0])
-    upper = np.array([10, 255, 255])
-    mask = cv2.inRange(hsv_img, lower, upper)
-     
-
+    #Mascara para detección de colore
+    if a==0:
+     lower = np.array([255,1,0])
+     upper = np.array([255,20,20])
+     mask = cv2.inRange(hsv_img, lower, upper)
+    elif a==1:
+     lower = np.array([110, 50, 50])
+     upper = np.array([130, 255, 255])
+     mask = cv2.inRange(hsv_img, lower, upper)
+    else:
+     lower  = np.array([20, 80, 80])
+     upper = np.array([30, 255, 255])
+     mask = cv2.inRange(hsv_img, lower, upper)
 
     #Remove Extra garbage from image
     d_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel,iterations = 5)
